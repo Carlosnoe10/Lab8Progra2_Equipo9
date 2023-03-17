@@ -9,6 +9,22 @@ public class Universo {
     public Universo(String Nombre) {
         this.Nombre = Nombre;
     }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public ArrayList<SeresVivos> getLiving() {
+        return living;
+    }
+
+    public void setLiving(ArrayList<SeresVivos> living) {
+        this.living = living;
+    }
     
     
 }
