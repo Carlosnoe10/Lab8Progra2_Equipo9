@@ -319,6 +319,11 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabla_lista);
 
         button1.setLabel("MOD");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout TRESMODLayout = new javax.swing.GroupLayout(TRESMOD.getContentPane());
         TRESMOD.getContentPane().setLayout(TRESMODLayout);
@@ -568,7 +573,6 @@ public class Principal extends javax.swing.JFrame {
                 aSV.cargarArchivo();
                 aSV.setPersona(nuevo);
                 aSV.escribirArchivo();
-
                 listartable(vivos, tabla_lista);
                 limpiartable(tabla_lista);
             } else {
@@ -580,7 +584,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_button5ActionPerformed
 
     private void NombreSV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreSV1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_NombreSV1ActionPerformed
 
     private void Universce1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Universce1MousePressed
@@ -599,6 +603,10 @@ public class Principal extends javax.swing.JFrame {
         if (Verificar(nombre)) {
             Universo u = new Universo(nombre);
             UU.add(u);
+            adminUniverso au = new adminUniverso("./Universis.cbm");
+            au.cargarArchivo();
+            au.setPersona(u);
+            au.escribirArchivo();
             JOptionPane.showMessageDialog(UNO, "Universo agregado");
         }
         limpiartable(TABLEU);
@@ -618,7 +626,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_POPSubMenuUNI1ActionPerformed
 
     private void MODUniverso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODUniverso1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_MODUniverso1ActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
@@ -635,6 +643,13 @@ public class Principal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_TABLEUMousePressed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        TRESMOD.setVisible(false);
+        TRESCONUNO.setVisible(true);
+        TRESCONUNO.setSize(900, 630);
+        TRESCONUNO.setLocationRelativeTo(this);
+    }//GEN-LAST:event_button1ActionPerformed
     public void listartableUniversos(ArrayList<Universo> lista, JTable TABLau) {
         DefaultTableModel modelo = (DefaultTableModel) TABLau.getModel();
         Object[] ob = new Object[1];
