@@ -6,19 +6,19 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Principal extends javax.swing.JFrame {
-    
+
     public Principal() {
-        
+
         initComponents();
         UNO.setVisible(true);
         UNO.setSize(808, 589);
         UNO.setLocationRelativeTo(this);
         vivos.add(nuevo);
         listartable(vivos, tabla_lista);
-        listartableUniversos(UU,TABLEU);
-        
+        listartableUniversos(UU, TABLEU);
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -213,6 +213,10 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setText("Agregar Años");
 
         SpinnerAñosSV.setModel(new javax.swing.SpinnerNumberModel(1, 0, 10000, 1));
+
+        choice1.add("");
+        choice1.add("Humano");
+        choice1.add("Amanto");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Elija Raza ");
@@ -478,6 +482,11 @@ public class Principal extends javax.swing.JFrame {
                 "Universo"
             }
         ));
+        TABLEU.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TABLEUMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(TABLEU);
 
         regresar.setLabel("regresar");
@@ -533,7 +542,7 @@ public class Principal extends javax.swing.JFrame {
         DOSAdd.setVisible(true);
         DOSAdd.setSize(302, 690);
         DOSAdd.setLocationRelativeTo(this);
-        
+
     }//GEN-LAST:event_BridgeADDActionPerformed
 
     private void BridgeMODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BridgeMODActionPerformed
@@ -544,9 +553,30 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_BridgeMODActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
-        SeresVivos nuevo = new SeresVivos(NombreSV.getText(), choice1.getSelectedItem(), Universce.getName(), (int) SpinnerNivelesPoder.getValue(), Integer.parseInt(IDSV.getText()), (int) SpinnerAñosSV.getValue());
-        listartable(vivos, tabla_lista);
-        limpiartable(tabla_lista);
+        String nan123 = NombreSV.getText();
+        String didi = IDSV.getText();
+        boolean nai = valid1(nan123);
+        boolean dpa = valid1(didi);
+        if (nan123.equalsIgnoreCase("") && (didi.equalsIgnoreCase("")) && (choice1.getSelectedItem().equalsIgnoreCase(""))) {
+            try {
+                JOptionPane.showMessageDialog(DOSAdd, "Rellene los espacios");
+            } catch (java.lang.NumberFormatException e) {
+            }
+            if ((nai == true) && (dpa == true)) {
+                SeresVivos nuevo = new SeresVivos(NombreSV.getText(), choice1.getSelectedItem(), Universce.getName(), (int) SpinnerNivelesPoder.getValue(), Integer.parseInt(IDSV.getText()), (int) SpinnerAñosSV.getValue());
+                adminSeresvivos aSV = new adminSeresvivos("./seresVivos.cbm");
+                aSV.cargarArchivo();
+                aSV.setPersona(nuevo);
+                aSV.escribirArchivo();
+
+                listartable(vivos, tabla_lista);
+                limpiartable(tabla_lista);
+            } else {
+                JOptionPane.showMessageDialog(DOSAdd, "Caracteres invalido");
+                NombreSV.setText("");
+                IDSV.setText("");
+            }
+        }
     }//GEN-LAST:event_button5ActionPerformed
 
     private void NombreSV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreSV1ActionPerformed
@@ -564,16 +594,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_POPSubMenuUNIActionPerformed
 
     private void BridgeADDUNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BridgeADDUNIActionPerformed
-        
+
         String nombre = JOptionPane.showInputDialog(TRESCONUNO, "Ingrese el nombre ");
-        if(Verificar(nombre)){
+        if (Verificar(nombre)) {
             Universo u = new Universo(nombre);
             UU.add(u);
-         JOptionPane.showMessageDialog(UNO, "Universo agregado");   
+            JOptionPane.showMessageDialog(UNO, "Universo agregado");
         }
-            limpiartable(TABLEU);
-            listartableUniversos(UU,TABLEU);
-        
+        limpiartable(TABLEU);
+        listartableUniversos(UU, TABLEU);
+
     }//GEN-LAST:event_BridgeADDUNIActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
@@ -584,7 +614,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_button4ActionPerformed
 
     private void POPSubMenuUNI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_POPSubMenuUNI1ActionPerformed
-        
+
     }//GEN-LAST:event_POPSubMenuUNI1ActionPerformed
 
     private void MODUniverso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODUniverso1ActionPerformed
@@ -597,14 +627,22 @@ public class Principal extends javax.swing.JFrame {
         UNO.setSize(900, 630);
         UNO.setLocationRelativeTo(this);
     }//GEN-LAST:event_regresarActionPerformed
+
+    private void TABLEUMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TABLEUMousePressed
+        if (evt.getButton() == 3) {
+            POPSubMenuUNI1.show(listar_universo, evt.getX(), evt.getY());
+        }
+
+
+    }//GEN-LAST:event_TABLEUMousePressed
     public void listartableUniversos(ArrayList<Universo> lista, JTable TABLau) {
         DefaultTableModel modelo = (DefaultTableModel) TABLau.getModel();
         Object[] ob = new Object[1];
         for (int i = 0; i < lista.size(); i++) {
-            
+
             ob[0] = lista.get(i).getNombre();
             modelo.addRow(ob);
-            
+
         }
     }
 
@@ -632,14 +670,24 @@ public class Principal extends javax.swing.JFrame {
             ob[4] = lista.get(i).getUniverso();
             ob[5] = lista.get(i).getRaza();
             modelo.addRow(ob);
-            
+
         }
     }
-    public void limpiartable(JTable tabla){
+
+    public void limpiartable(JTable tabla) {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         for (int i = 0; i < tabla.getRowCount(); i++) {
             modelo.removeRow(i);
             i--;
+        }
+    }
+
+    public static boolean valid1(String cadena1) {
+        try {
+            Integer.parseInt(cadena1);
+            return false;
+        } catch (NumberFormatException e) {
+            return true;
         }
     }
 

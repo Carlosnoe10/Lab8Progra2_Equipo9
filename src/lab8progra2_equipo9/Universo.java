@@ -1,8 +1,10 @@
 package lab8progra2_equipo9;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Universo {
+public class Universo implements Serializable{
+    private static final long SerialVersionUID=750L;
     public String Nombre;
     public ArrayList<SeresVivos> living = new ArrayList();
 

@@ -4,14 +4,18 @@
  */
 package lab8progra2_equipo9;
 
+import java.io.Serializable;
+
 /**
  *
  * @author cd507
  */
-public class SeresVivos {
- private String nombre,raza,universo;
- private int poder,id,annios;
+public class SeresVivos implements Serializable {
 
+    private String nombre, raza, universo;
+    private int poder, id, annios;
+    private static final long SerialVersionUID=780L;
+    
     public SeresVivos() {
     }
 
@@ -71,6 +75,5 @@ public class SeresVivos {
     public void setAnnios(int annios) {
         this.annios = annios;
     }
- 
- 
+
 }
